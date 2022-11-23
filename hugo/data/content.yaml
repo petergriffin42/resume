@@ -1,0 +1,120 @@
+BasicInfo:
+  FirstName: Peter
+  LastName: Griffin
+  Photo: img/silly-test-pic.png
+  Contacts:
+    - Icon: fas fa-home
+      Info: https://resume.petergriffin.org
+    - Icon: fas fa-phone
+      Info: 4801111111
+    - Icon: fas fa-envelope
+      Info: fakefornow@gmail.com
+    - Icon: fas fa-map-marker-alt
+      Info: Arizona
+
+URL: This resume was deployed through Terraform and is hosted on AWS EKS nodes. Check it out at https://github.com/petergriffin42/resume
+
+Profile: Experienced Senior Linux Engineer looking to expand his skillset into more modern environments involving Kubernetes. Recently acquired the Certified Kubernetes Administrator (CKA) certificate and is excited at the possibilites of this amazing platform.
+
+Experience:
+  - Employer: Vitalant
+    Place: Scottsdale, AZ
+    Positions:
+      - Title: Senior Systems Engineer
+        Date: Mar 2021 - Present
+        Details:
+          - Utilizing Packer & Terraform automated the creation of ready made Docker nodes
+          - Setup GitLab CI pipelines for Ansible & SaltStack code changes 
+          - Migrated multiple internal applications into Docker containers
+          - Automated server and application installs for priority physical servers
+          - Investigated Production traffic and discovered several insecure endpoints
+          - Wrote multiple Python scripts to automate tasks through Rest API's
+          - Created Powershell script to safely VMware snapshot whole environments
+        Badges: ['Ansible', 'Docker', 'Gitlab', 'SaltStack', 'Terraform']
+  - Employer: CCBill LLC
+    Place: Phoenix, AZ
+    Positions:
+      - Title: Systems Engineer 2
+        Date: May 2017 - Mar 2021
+        Details:
+          - Maintaining, building, monitoring, and patching CentOS servers in multiple VMware Production environments
+          - Extensive successful work troubleshooting Production application and performance issues
+          - Lead Engineer in upgrading multiple MySQL Production databases. Used Ansible to automate the setup and deployment of new primary & replica database servers
+          - Automated the creation and installation of brand new environments through Ansible and Puppet
+          - Supported and troubleshot issues with a Kubernetes cluster hooked into Jenkins CI/CD
+          - Worked extensively with Load Balancing appliances such as F5 LTM, VMware NSX and HAProxy.
+          - Mentored junior engineers in best practices and how to deal with production issues
+        Badges: ['Ansible', 'Database', 'Kubernetes', 'Load Balancing', 'Linux', 'Puppet']
+
+  - Employer: PhoenixNAP LLC 
+    Place: Phoenix, AZ
+    Positions:
+      - Title: NOC Engineer
+        Date: Jan 2015 - May 2017
+        Details:     
+          - Installed and supported Linux and Windows servers in the PhoenixNAP datacenter. Included physical and cloud servers with a wide array of OS distributions.
+          - Managed the Linux servers & applications for the primary Marketing websites
+          - Communicated daily with US & foreign clients via phone, live chat, and email
+
+References:
+  - Name: Kathy Henry
+    Relation: Boss at CCBill & PhoenixNAP LLC
+    Contacts:
+    - Icon: fas fa-phone
+      Info: +44 updatephone
+    - Icon: fas fa-envelope
+      Info: kathyh@ccbill.com
+  - Name: Joe Mazza
+    Relation: Coworker at CCBill & PhoenixNAP LLC
+    Contacts:
+    - Icon: fas fa-phone
+      Info: +44 updatephone
+    - Icon: fas fa-envelope
+      Info: joem@ccbill.com
+
+Skills:
+  - Family: Programming
+    Items:
+      - Bash
+      - Powershell
+      - Python
+      - Yaml
+  - Family: Container Platforms
+    Items:
+      - Docker
+      - Kubernetes
+  - Family: Infrastructure as Code tools
+    Items:
+      - Ansible
+      - Packer
+      - Puppet
+      - Saltstack
+      - Terraform
+  - Family: Developer Tools
+    Items:
+      - Git
+      - Github
+      - Github Actions
+      - Gitlab
+      - Gitlab CI
+  - Family: Cloud
+    Items:
+      - Google Cloud (GCP)
+      - VMware
+  - Family: Software
+    Items:
+      - Artifactory
+      - Bitbucket
+      - Confluence 
+      - Extrahop
+      - F5 BIG-IP LTM & DNS
+      - Jira
+      - Rapid7
+      - Splunk
+      - Vault
+
+Certifications:
+  - Certified Kubernetes Administrator CKA (Nov 2022)
+  - Puppet Practioner (Dec 2019)
+  - RedHat Certified System Administrator RHCSA (Mar 2019)
+

@@ -1,0 +1,11 @@
+  version: "1.0"
+  services:
+    hugo:
+      image: "klakegg/hugo:0.101.0"
+      command: server
+      volumes:
+        - ".:/src"
+      ports:
+        - "1313:1313"
+      # Change below if necessary. When performing hugo --minify the files were coming out as root
+      user: 1000:1000

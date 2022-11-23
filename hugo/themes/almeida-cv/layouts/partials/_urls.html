@@ -1,0 +1,5 @@
+{{ if .URL }}
+    <div class="section__content">
+        <p>{{ .URL | safeHTML | markdownify }}</p>
+    </div>
+{{ end }}
