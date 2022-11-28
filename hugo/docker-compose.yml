@@ -1,3 +1,5 @@
+  # This is a docker compose file to run the hugo server locally to view changes to the website
+  
   version: "1.0"
   services:
     hugo:

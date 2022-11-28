@@ -27,5 +27,14 @@ terraform {
   }
 
   required_version = "~> 1.3"
+
+   backend "s3" {
+   bucket         = "resume-petergriffin-terraform-state"
+   key            = "state/terraform.tfstate"
+   region         = "us-west-2"
+   encrypt        = true
+   kms_key_id     = "alias/terraform-bucket-key"
+   dynamodb_table = "terraform-state"
+ }
 }
 
