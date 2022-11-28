@@ -46,26 +46,26 @@ provider "helm" {
   }
 }
 resource "helm_release" "ingress-nginx" {
-  name       = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  namespace  = "ingress-nginx"
+  name             = "ingress-nginx"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  namespace        = "ingress-nginx"
   create_namespace = true
-  version = "4.4.0"
+  version          = "4.4.0"
 }
 
 resource "helm_release" "cert-manager" {
-  name       = "cert-manager"
-  repository = "https://charts.jetstack.io"
-  chart      = "cert-manager"
-  namespace  = "cert-manager"
+  name             = "cert-manager"
+  repository       = "https://charts.jetstack.io"
+  chart            = "cert-manager"
+  namespace        = "cert-manager"
   create_namespace = true
-  version = "1.10.1"
+  version          = "1.10.1"
 }
 
 resource "kubernetes_secret" "cloudflare-token" {
   metadata {
-    name = "cloudflare-api-token-secret"
+    name      = "cloudflare-api-token-secret"
     namespace = "cert-manager"
   }
   data = {
@@ -76,7 +76,7 @@ resource "kubernetes_secret" "cloudflare-token" {
 resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
-    "kind" = "ClusterIssuer"
+    "kind"       = "ClusterIssuer"
     "metadata" = {
       "name" = "letsencrypt-staging"
     }
@@ -92,7 +92,7 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
             "dns01" = {
               "cloudflare" = {
                 "apiTokenSecretRef" = {
-                  "key" = "api-token"
+                  "key"  = "api-token"
                   "name" = "cloudflare-api-token-secret"
                 }
               }

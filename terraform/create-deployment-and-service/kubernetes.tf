@@ -80,9 +80,9 @@ resource "kubernetes_deployment" "resume-web" {
       }
       spec {
         container {
-          image = "petergriffin42/resume:v1.5"
+          image             = "petergriffin42/resume:v1.5"
           image_pull_policy = "Always"
-          name  = "resume-web-container"
+          name              = "resume-web-container"
 
           port {
             container_port = 80
@@ -131,7 +131,7 @@ resource "kubernetes_ingress_v1" "nginx-dmz" {
   metadata {
     name = "nginx-dmz"
     annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
+      "kubernetes.io/ingress.class"    = "nginx"
       "cert-manager.io/cluster-issuer" = "letsencrypt-staging"
     }
   }
@@ -153,7 +153,7 @@ resource "kubernetes_ingress_v1" "nginx-dmz" {
       }
     }
     tls {
-      hosts = ["www.petergriffin.org"]
+      hosts       = ["www.petergriffin.org"]
       secret_name = "ingress-tls-cert"
     }
   }
