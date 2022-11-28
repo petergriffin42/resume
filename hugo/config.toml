@@ -6,9 +6,12 @@ enableEmoji = true
 theme = "almeida-cv"
 disableKinds = ["page", "section", "taxonomy", "term", "RSS", "sitemap"]
 
-baseURL = "https://resume.petergriffin.org/"
+baseURL = "https://www.petergriffin.org"
 title = "Peter Griffin - Resume"
 #googleAnalytics = ""
+
+[minify]
+  minifyOutput = true
 
 [params]
 enableMetaTags = true

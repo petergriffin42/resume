@@ -1,18 +1,18 @@
 BasicInfo:
   FirstName: Peter
   LastName: Griffin
-  Photo: img/silly-test-pic.png
+  Photo: img/headshot.jpg
   Contacts:
     - Icon: fas fa-home
-      Info: https://resume.petergriffin.org
+      Info: https://www.petergriffin.org
     - Icon: fas fa-phone
-      Info: 4801111111
+      Info: 480-269-5426
     - Icon: fas fa-envelope
-      Info: fakefornow@gmail.com
+      Info: pgriffwork@gmail.com
     - Icon: fas fa-map-marker-alt
       Info: Arizona
 
-URL: This resume was deployed through Terraform and is hosted on AWS EKS nodes. Check it out at https://github.com/petergriffin42/resume
+URL: This resume is hosted on a AWS EKS cluster and was deployed through Terraform with Github Actions. Check it out at https://github.com/petergriffin42/resume
 
 Profile: Experienced Senior Linux Engineer looking to expand his skillset into more modern environments involving Kubernetes. Recently acquired the Certified Kubernetes Administrator (CKA) certificate and is excited at the possibilites of this amazing platform.
 
@@ -58,19 +58,19 @@ Experience:
 
 References:
   - Name: Kathy Henry
-    Relation: Boss at CCBill & PhoenixNAP LLC
+    Relation: Boss at CCBill LLC
     Contacts:
     - Icon: fas fa-phone
-      Info: +44 updatephone
+      Info: 623-363-4382
     - Icon: fas fa-envelope
       Info: kathyh@ccbill.com
-  - Name: Joe Mazza
-    Relation: Coworker at CCBill & PhoenixNAP LLC
+  - Name: Bill Holt
+    Relation: Boss at PhoenixNAP LLC
     Contacts:
     - Icon: fas fa-phone
-      Info: +44 updatephone
+      Info: 480-293-4503
     - Icon: fas fa-envelope
-      Info: joem@ccbill.com
+      Info: billh@phoenixnap.com
 
 Skills:
   - Family: Programming
@@ -99,7 +99,7 @@ Skills:
       - Gitlab CI
   - Family: Cloud
     Items:
-      - Google Cloud (GCP)
+      - Amazon Web Services (AWS)
       - VMware
   - Family: Software
     Items:
