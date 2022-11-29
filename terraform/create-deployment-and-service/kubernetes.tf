@@ -54,12 +54,12 @@ provider "kubernetes" {
   }
 }
 
-resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
+resource "kubernetes_manifest" "clusterissuer_letsencrypt_production" {
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
     "kind"       = "ClusterIssuer"
     "metadata" = {
-      "name" = "letsencrypt-staging"
+      "name" = "letsencrypt-production"
     }
     "spec" = {
       "acme" = {
@@ -67,7 +67,7 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
         "privateKeySecretRef" = {
           "name" = "issuer-account-key"
         }
-        "server" = "https://acme-staging-v02.api.letsencrypt.org/directory"
+        "server" = "https://acme-v02.api.letsencrypt.org/directory"
         "solvers" = [
           {
             "http01" = {
@@ -81,8 +81,6 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
     }
   }
 }
-
-variable "dockerconfig" {}
 
 resource "kubernetes_secret" "dockercred" {
   metadata {
@@ -171,7 +169,7 @@ resource "kubernetes_ingress_v1" "nginx-dmz" {
     name = "nginx-dmz"
     annotations = {
       "kubernetes.io/ingress.class"    = "nginx"
-      "cert-manager.io/cluster-issuer" = "letsencrypt-staging"
+      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
     }
   }
   spec {
