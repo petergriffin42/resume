@@ -82,6 +82,10 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_production" {
   }
 }
 
+variable "dockerconfig" {
+  sensitive = true
+}
+
 resource "kubernetes_secret" "dockercred" {
   metadata {
     name = "dockercred"
