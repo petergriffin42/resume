@@ -82,13 +82,15 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
   }
 }
 
+variable "dockerconfig" {}
+
 resource "kubernetes_secret" "dockercred" {
   metadata {
     name = "dockercred"
   }
 
   data = {
-    ".dockerconfigjson" = var.docker_config
+    ".dockerconfigjson" = base64decode(var.dockerconfig)
   }
 
   type = "kubernetes.io/dockerconfigjson"
