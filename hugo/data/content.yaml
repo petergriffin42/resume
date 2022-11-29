@@ -21,7 +21,7 @@ Experience:
     Place: Scottsdale, AZ
     Positions:
       - Title: Senior Systems Engineer
-        Date: Mar 2021 - Present
+        Date: May 2021 - Present
         Details:
           - Utilizing Packer & Terraform automated the creation of ready made Docker nodes
           - Setup GitLab CI pipelines for Ansible & SaltStack code changes 
@@ -35,7 +35,7 @@ Experience:
     Place: Phoenix, AZ
     Positions:
       - Title: Systems Engineer 2
-        Date: May 2017 - Mar 2021
+        Date: May 2017 - May 2021
         Details:
           - Maintaining, building, monitoring, and patching CentOS servers in multiple VMware Production environments
           - Extensive successful work troubleshooting Production application and performance issues
