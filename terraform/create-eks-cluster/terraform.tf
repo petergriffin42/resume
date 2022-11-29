@@ -30,7 +30,7 @@ terraform {
 
   backend "s3" {
     bucket         = "resume-petergriffin-terraform-state"
-    key            = "state/terraform.tfstate"
+    key            = "state/terraform-eks-cluster.tfstate"
     region         = "us-west-2"
     encrypt        = true
     kms_key_id     = "alias/terraform-bucket-key"

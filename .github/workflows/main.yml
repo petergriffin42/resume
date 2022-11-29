@@ -1,15 +1,3 @@
-# 2. Generate a Terraform Cloud user API token and store it as a GitHub secret (e.g. TF_API_TOKEN) on this repository.
-#   Documentation:
-#     - https://www.terraform.io/docs/cloud/users-teams-organizations/api-tokens.html
-#     - https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
-#
-# 3. Reference the GitHub secret in step using the `hashicorp/setup-terraform` GitHub Action.
-#   Example:
-#     - name: Setup Terraform
-#       uses: hashicorp/setup-terraform@v1
-#       with:
-#         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
 name: 'Terraform'
 
 on:
@@ -22,7 +10,7 @@ permissions:
 
 jobs:
   create-eks-cluster:
-    name: 'EKS Cluster'
+    name: 'EKS Cluster create'
     runs-on: self-hosted
     environment: production
     
@@ -48,6 +36,66 @@ jobs:
       run: terraform plan -input=false     
         
     - name: Create cluster
-      #if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
 
+    - name: Update kubeconfig
+      run: aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
+
+  deploy-helm-services:
+    name: 'nginx ingress and cert-manager installs'
+    runs-on: self-hosted
+    environment: production
+    needs: create-eks-cluster
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform/deploy-helm-services
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Terraform Init
+      run: terraform init
+      
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Plan
+      run: terraform plan -input=false     
+        
+    - name: Terraform apply
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
+
+  create-deployment-and-service:
+    name: 'deployment and service install'
+    runs-on: self-hosted
+    environment: production
+    needs: deploy-helm-services
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform/create-deployment-and-service
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Terraform Init
+      run: terraform init
+      
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Plan
+      run: terraform plan -input=false     
+        
+    - name: Terraform apply
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false

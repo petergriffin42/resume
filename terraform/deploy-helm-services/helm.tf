@@ -1,3 +1,5 @@
+
+
 terraform {
   required_providers {
     aws = {
@@ -10,13 +12,23 @@ terraform {
       version = ">= 2.0.1"
     }
   }
+  backend "s3" {
+    bucket         = "resume-petergriffin-terraform-state"
+    key            = "state/terraform-helm.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    kms_key_id     = "alias/terraform-bucket-key"
+    dynamodb_table = "terraform-state"
+  }
 }
 
 data "terraform_remote_state" "eks" {
-  backend = "local"
+  backend = "s3"
 
   config = {
-    path = "../create-eks-cluster/terraform.tfstate"
+    bucket = "resume-petergriffin-terraform-state"
+    key    = "state/terraform-eks-cluster.tfstate"
+    region = "us-west-2"
   }
 }
 
@@ -61,45 +73,8 @@ resource "helm_release" "cert-manager" {
   namespace        = "cert-manager"
   create_namespace = true
   version          = "1.10.1"
-}
-
-resource "kubernetes_secret" "cloudflare-token" {
-  metadata {
-    name      = "cloudflare-api-token-secret"
-    namespace = "cert-manager"
-  }
-  data = {
-    api-token = var.cloudflare_api_token
-  }
-}
-
-resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
-  manifest = {
-    "apiVersion" = "cert-manager.io/v1"
-    "kind"       = "ClusterIssuer"
-    "metadata" = {
-      "name" = "letsencrypt-staging"
-    }
-    "spec" = {
-      "acme" = {
-        "email" = "pgriffwork@gmail.com"
-        "privateKeySecretRef" = {
-          "name" = "issuer-account-key"
-        }
-        "server" = "https://acme-staging-v02.api.letsencrypt.org/directory"
-        "solvers" = [
-          {
-            "dns01" = {
-              "cloudflare" = {
-                "apiTokenSecretRef" = {
-                  "key"  = "api-token"
-                  "name" = "cloudflare-api-token-secret"
-                }
-              }
-            }
-          },
-        ]
-      }
-    }
+  set {
+    name  = "installCRDs"
+    value = "true"
   }
 }

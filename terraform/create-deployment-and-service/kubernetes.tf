@@ -10,13 +10,23 @@ terraform {
       version = ">= 2.0.1"
     }
   }
+  backend "s3" {
+    bucket         = "resume-petergriffin-terraform-state"
+    key            = "state/terraform-deployment.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    kms_key_id     = "alias/terraform-bucket-key"
+    dynamodb_table = "terraform-state"
+  }
 }
 
 data "terraform_remote_state" "eks" {
-  backend = "local"
+  backend = "s3"
 
   config = {
-    path = "../create-eks-cluster/terraform.tfstate"
+    bucket = "resume-petergriffin-terraform-state"
+    key    = "state/terraform-eks-cluster.tfstate"
+    region = "us-west-2"
   }
 }
 
@@ -44,18 +54,45 @@ provider "kubernetes" {
   }
 }
 
+resource "kubernetes_manifest" "clusterissuer_letsencrypt_staging" {
+  manifest = {
+    "apiVersion" = "cert-manager.io/v1"
+    "kind"       = "ClusterIssuer"
+    "metadata" = {
+      "name" = "letsencrypt-staging"
+    }
+    "spec" = {
+      "acme" = {
+        "email" = "pgriffwork@gmail.com"
+        "privateKeySecretRef" = {
+          "name" = "issuer-account-key"
+        }
+        "server" = "https://acme-staging-v02.api.letsencrypt.org/directory"
+        "solvers" = [
+          {
+            "http01" = {
+              "ingress" = {
+                "class" = "nginx"
+              }
+            }
+          },
+        ]
+      }
+    }
+  }
+}
+
 resource "kubernetes_secret" "dockercred" {
   metadata {
     name = "dockercred"
   }
 
   data = {
-    ".dockerconfigjson" = "${file("${path.module}/.docker/config.json")}"
+    ".dockerconfigjson" = "{var.docker_config}"
   }
 
   type = "kubernetes.io/dockerconfigjson"
 }
-
 
 resource "kubernetes_deployment" "resume-web" {
   metadata {
