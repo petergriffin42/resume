@@ -35,8 +35,8 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false     
         
-    - name: Create cluster
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+    - name: Terraform apply
+      if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve -input=false
 
     - name: Update kubeconfig
@@ -68,7 +68,7 @@ jobs:
       run: terraform plan -input=false     
         
     - name: Terraform apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve -input=false
 
   create-deployment-and-service:
@@ -97,5 +97,5 @@ jobs:
       run: terraform plan -input=false     
         
     - name: Terraform apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve -input=false
