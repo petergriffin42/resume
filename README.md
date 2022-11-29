@@ -1,5 +1,5 @@
 # Peter Griffin's Resume!
-This respository was an oppurtunity to learn and show off some of my knowledge while I was at it. 
+This respository was an opportunity to learn and show off some of my knowledge while I was at it. 
 
 I used the following while creating this respository:
 * Hugo for creating the website

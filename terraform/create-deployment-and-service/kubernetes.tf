@@ -121,7 +121,7 @@ resource "kubernetes_deployment" "resume-web" {
       }
       spec {
         container {
-          image             = "petergriffin42/resume:v1.5"
+          image             = "petergriffin42/resume:v1.6"
           image_pull_policy = "Always"
           name              = "resume-web-container"
 
